@@ -1,0 +1,177 @@
+1. Select Queries
+
+- View all records from a table:
+    SELECT * FROM table_name;
+
+- Select specific columns:
+    SELECT column1, column2 FROM table_name;
+
+- Select with a condition (WHERE clause):
+    SELECT * FROM table_name WHERE column_name = 'value';
+
+- Select with multiple conditions (AND, OR):
+    SELECT * FROM table_name WHERE column1 = 'value1' AND column2 = 'value2';
+
+    OR
+
+    SELECT * FROM table_name WHERE column1 = 'value1' OR column2 = 'value2';
+
+- Select records sorted by a specific column (ORDER BY):
+    SELECT * FROM table_name ORDER BY column_name ASC;  -- Ascending
+
+    OR
+
+    SELECT * FROM table_name ORDER BY column_name DESC;  -- Descending
+
+- Limit number of records returned (LIMIT):
+    SELECT * FROM table_name LIMIT 5;
+
+2. Aggregate Functions
+
+- Count the number of records:
+    SELECT COUNT(*) FROM table_name;
+
+- Count with a condition:
+    SELECT COUNT(*) FROM table_name WHERE column_name = 'value';
+
+- Get the minimum value:
+    SELECT MIN(column_name) FROM table_name;
+
+- Get the maximum value:
+    SELECT MAX(column_name) FROM table_name;
+
+- Get the average value:
+    SELECT AVG(column_name) FROM table_name;
+
+- Sum values:
+    SELECT SUM(column_name) FROM table_name;
+
+3. Grouping Data
+
+- Group by a specific column:
+    SELECT column_name, COUNT(*) FROM table_name GROUP BY column_name;
+
+- Group by multiple columns:
+    SELECT column1, column2, COUNT(*) FROM table_name GROUP BY column1, column2;
+
+- Filter groups (HAVING):
+    SELECT column_name, COUNT(*) FROM table_name GROUP BY column_name HAVING COUNT(*) > 5;
+
+4. Joining Tables
+
+- Inner Join:
+    SELECT columns FROM table1
+    INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+- Left Join:
+    SELECT columns FROM table1
+    LEFT JOIN table2 ON table1.column_name = table2.column_name;
+
+- Right Join:
+    SELECT columns FROM table1
+    RIGHT JOIN table2 ON table1.column_name = table2.column_name;
+
+- Full Join:
+    SELECT columns FROM table1
+    FULL JOIN table2 ON table1.column_name = table2.column_name;
+
+5. Insert Queries
+
+- Insert a single record:
+    INSERT INTO table_name (column1, column2, column3)
+    VALUES (value1, value2, value3);
+
+- Insert multiple records:
+    INSERT INTO table_name (column1, column2, column3)
+    VALUES (value1, value2, value3),
+           (value4, value5, value6),
+           (value7, value8, value9);
+
+6. Update Queries
+
+- Update a single record:
+    UPDATE table_name
+    SET column1 = value1, column2 = value2
+    WHERE condition;
+
+- Update multiple records:
+    UPDATE table_name
+    SET column_name = value
+    WHERE condition;
+
+7. Delete Queries
+
+- Delete a single record:
+    DELETE FROM table_name WHERE condition;
+
+- Delete all records:
+    DELETE FROM table_name;
+
+8. Alter Queries
+
+- Add a new column to an existing table:
+    ALTER TABLE table_name ADD column_name data_type;
+
+- Modify an existing column's data type:
+    ALTER TABLE table_name MODIFY column_name new_data_type;
+
+- Drop a column from a table:
+    ALTER TABLE table_name DROP COLUMN column_name;
+
+9. Create and Drop Tables
+
+- Create a new table:
+    CREATE TABLE table_name (
+        column1 data_type,
+        column2 data_type,
+        column3 data_type
+    );
+
+- Drop a table:
+    DROP TABLE table_name;
+
+10. Subqueries
+
+- Using a subquery in the SELECT statement:
+    SELECT column1, column2 FROM table_name
+    WHERE column3 = (SELECT column3 FROM another_table WHERE condition);
+
+- Using a subquery in the WHERE clause:
+    SELECT * FROM table_name
+    WHERE column_name IN (SELECT column_name FROM another_table WHERE condition);
+
+11. Altering Data Types and Constraints
+
+- Add a PRIMARY KEY:
+    ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+
+- Add a FOREIGN KEY:
+    ALTER TABLE table_name ADD CONSTRAINT fk_name FOREIGN KEY (column_name) REFERENCES referenced_table(column_name);
+
+12. Working with Views
+
+- Create a view:
+    CREATE VIEW view_name AS
+    SELECT column1, column2 FROM table_name WHERE condition;
+
+- Select from a view:
+    SELECT * FROM view_name;
+
+- Drop a view:
+    DROP VIEW view_name;
+
+13. Using LIKE, IN, and BETWEEN
+
+- Using LIKE (for pattern matching):
+    SELECT * FROM table_name WHERE column_name LIKE 'prefix%';
+
+- Using IN (for multiple values matching):
+    SELECT * FROM table_name WHERE column_name IN ('value1', 'value2', 'value3');
+
+- Using BETWEEN (for a range of values):
+    SELECT * FROM table_name WHERE column_name BETWEEN value1 AND value2;
+
+14. Drop Database
+
+- Drop a database:
+    DROP DATABASE database_name;
