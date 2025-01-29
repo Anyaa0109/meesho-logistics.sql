@@ -1,0 +1,152 @@
+
+1. Find the Second Highest Salary in a Department
+
+SELECT MAX(salary) AS SecondHighestSalary
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+2. Find the Employees Who Have the Same Salary as the Highest Paid Employee in the Department
+
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees WHERE department_id = employees.department_id);
+
+3. Retrieve Employees Who Are Managers (Employees Who Have Subordinates)
+
+SELECT DISTINCT e1.employee_id, e1.first_name, e1.last_name
+FROM employees e1
+JOIN employees e2 ON e1.employee_id = e2.manager_id;
+
+4. Find Departments Where No Employees Have Worked More Than 5 Years
+
+SELECT department_id
+FROM employees
+GROUP BY department_id
+HAVING MAX(DATEDIFF(CURRENT_DATE, hire_date)) <= 1825;  -- 1825 days = 5 years
+
+5. Count the Number of Employees in Each Department
+
+SELECT department_id, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department_id;
+
+6. List Employees Who Joined After a Specific Employee (e.g., John Doe)
+
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE hire_date > (
+    SELECT hire_date
+    FROM employees
+    WHERE first_name = 'John' AND last_name = 'Doe'
+);
+
+7. Find the Employees Who Earn More Than the Average Salary of Their Department
+
+SELECT e.employee_id, e.first_name, e.salary
+FROM employees e
+WHERE e.salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE department_id = e.department_id
+);
+
+8. Get the Top 3 Highest Paid Employees
+
+SELECT employee_id, first_name, salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 3;
+
+9. Find the Departments with the Highest Number of Employees
+
+SELECT department_id, COUNT(*) AS num_employees
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) = (
+    SELECT MAX(department_count)
+    FROM (
+        SELECT department_id, COUNT(*) AS department_count
+        FROM employees
+        GROUP BY department_id
+    ) AS department_counts
+);
+
+10. Find Employees Who Do Not Have a Manager
+
+SELECT employee_id, first_name, last_name
+FROM employees
+WHERE manager_id IS NULL;
+
+11. Get the Average Salary for Each Job Title
+
+SELECT job_title, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY job_title;
+
+12. Retrieve the Employees Who Have Worked for More Than 10 Years in the Company
+
+SELECT employee_id, first_name, last_name, hire_date
+FROM employees
+WHERE DATEDIFF(CURRENT_DATE, hire_date) > 3650;  -- 3650 days = 10 years
+
+13. List the Employees Who Report to the Same Manager
+
+SELECT e1.first_name AS employee_name, e2.first_name AS manager_name
+FROM employees e1
+JOIN employees e2 ON e1.manager_id = e2.employee_id
+WHERE e1.manager_id IS NOT NULL;
+
+14. Retrieve the Employees Who Have a Salary Between the Highest and Lowest Salaries
+
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary BETWEEN (
+    SELECT MIN(salary) FROM employees
+) AND (
+    SELECT MAX(salary) FROM employees
+);
+
+15. Find the Department with the Highest Average Salary
+
+SELECT department_id
+FROM employees
+GROUP BY department_id
+ORDER BY AVG(salary) DESC
+LIMIT 1;
+
+16. Get Employees Who Earn More Than Any Employee in the 'Sales' Department
+
+SELECT employee_id, first_name, last_name, salary
+FROM employees
+WHERE salary > (
+    SELECT MAX(salary) FROM employees WHERE department_id = 'Sales'
+);
+
+17. Find the Employees Who Are the Only One in Their Department
+
+SELECT e.employee_id, e.first_name, e.department_id
+FROM employees e
+WHERE (SELECT COUNT(*) FROM employees WHERE department_id = e.department_id) = 1;
+
+18. Find the Total Salary Paid to Each Department, Including Departments with No Employees
+
+SELECT d.department_name, COALESCE(SUM(e.salary), 0) AS total_salary
+FROM departments d
+LEFT JOIN employees e ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+19. Find the Highest Salary in Each Department
+
+SELECT department_id, MAX(salary) AS highest_salary
+FROM employees
+GROUP BY department_id;
+
+20. Get the Employees with the Highest Salary in Their Department
+
+SELECT employee_id, first_name, salary, department_id
+FROM employees e1
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees e2
+    WHERE e1.department_id = e2.department_id
+);
